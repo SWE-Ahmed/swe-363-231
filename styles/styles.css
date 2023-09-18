@@ -1,0 +1,53 @@
+nav li {
+    display: inline;
+}
+
+nav ul {
+    padding-left: 0;
+}
+
+nav li:first-of-type {
+    text-decoration: underline;
+}
+
+a {
+    color: green;
+}
+
+header {
+    text-transform: uppercase;
+}
+
+em {
+    background-color: blue;
+}
+
+.top {
+    background-color: goldenrod;
+}
+
+#the_most_important {
+    background-color: gold;
+    text-transform: uppercase;
+}
+
+h2 {
+    font-family: sans-serif;
+    text-transform: uppercase;
+}
+
+tr:nth-child(even) {
+    background-color: greenyellow;
+}
+
+tr:hover {
+    background-color: lightgreen;
+}
+
+::selection {
+    background: lightgreen;
+}
+
+body a:hover {
+    cursor: pointer;
+}
