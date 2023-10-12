@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .cell {
+            font-family: sans-serif;
+            font-size: larger;
+            font-weight: bolder;
+            background-color: beige;
+            width: 100px;
+            height: 100px;
+            border: 1px solid black;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cell:hover {
+            background-color: blanchedalmond;
+        }
+
+        .row {
+            display: flex;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 id="turn">
+        Now it's is <span>X</span> turn
+    </h1>
+    <!-- Board -->
+    <div class="board">
+        <div class="row">
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+        </div>
+        <div class="row">
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+        </div>
+        <div class="row">
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+        </div>
+        <script>
+
+            // decided which turn is it
+            var turn = "X"
+            var gameEnded = false
+            var winner = ""
+
+            // when we click on a cell add the letter 
+            let board = document.getElementsByClassName("board")[0]
+            board.addEventListener("click", cellClicked)
+
+            function cellClicked(event) {
+                let cell = event.target
+                state = cell.innerText
+
+                if (gameEnded) {
+                    // HW 
+                } else {
+                    // change turn
+                    if (state === "") {
+                        // change the text to the value of turn
+                        cell.innerText = turn
+                        // change the colour based on the value of turn
+                        cell.style.backgroundColor = turn === "X" ? "blue" : "red"
+                        turn = turn === "X" ? "O" : "X"
+                        turnLetter = document.querySelector("#turn span")
+                        turnLetter.innerText = turn
+
+
+                    } else {
+                        turnLetter = document.querySelector("#turn span")
+                        turnLetter.innerText = turn
+                    }
+
+
+                    // check if the game ended
+                    let rows = cell.parentNode.parentNode.getElementsByClassName("row")
+                    var i = 0
+                    while (gameEnded !== true) {
+                        results = computeRow(rows[i])
+                        gameEnded = results.gameEnded
+                        winner = results.winner
+                        i = i + 1
+                        if (i === rows.length){
+                            break;
+                        }
+                    }
+                    i = 0
+                    while (gameEnded !== true) {
+                        results = computeColumn(rows, i)
+                        gameEnded = results.gameEnded
+                        winner = results.winner
+                        i = i + 1
+                        if (i === rows.length){
+                            break;
+                        }
+                    }
+                    i = 0
+                    while (gameEnded !== true) {
+                        results = computeDiagonal(rows)
+                        gameEnded = results.gameEnded
+                        winner = results.winner
+                        i = i + 1
+                        if (i === rows.length){
+                            break;
+                        }
+                    }
+                    // console.log(gameEnded)
+                    if (gameEnded){
+                        title = document.querySelector("#turn")
+                        title.innerText = `The winner is ${winner}`
+                    }
+
+                }
+            }
+            
+            function computeRow(row){
+                // given a row we will compute if it has completed the pattern
+                var count = 0
+                cells = row.querySelectorAll(".cell")
+                for (var i = 0; i < cells.length; i++){
+                    if (cells[i].innerText !== ""){
+                        if (cells[i].innerText === 'X'){
+                            count = count + 1
+                        } else {
+                            count = count - 1
+                        }
+                    }
+                }
+                // output result
+                if (count === 3){
+                    return {
+                        'gameEnded': true,
+                        'winner': "blue"
+                    }
+                } else if (count === -3) {
+                    return {
+                        'gameEnded': true,
+                        'winner': "red"
+                    }
+                } else {
+                    return {
+                        'gameEnded': false,
+                        'winner': ""
+                    }
+                }
+            }
+
+            function computeColumn(columns, col){
+                // given a column we will compute if it has completed the pattern
+                var count = 0
+                for (var i = 0; i < columns.length; i++){
+                    if (columns[i].children[col].innerText !== ""){
+                        if (columns[i].children[col].innerText === 'X'){
+                            count = count + 1
+                        } else {
+                            count = count - 1
+                        }
+                    }
+                }
+                // output result
+                if (count === 3){
+                    return {
+                        'gameEnded': true,
+                        'winner': "blue"
+                    }
+                } else if (count === -3) {
+                    return {
+                        'gameEnded': true,
+                        'winner': "red"
+                    }
+                } else {
+                    return {
+                        'gameEnded': false,
+                        'winner': ""
+                    }
+                }
+            }
+
+            function computeDiagonal(columns){
+                // given a column we will compute if it has completed the pattern
+                var count = 0
+                if (columns[0].children[0].innerText == "X" &&
+                    columns[1].children[1].innerText == "X" &&
+                    columns[2].children[2].innerText == "X") {
+                        count = 3
+                    }
+                else if (columns[0].children[0].innerText == "O" &&
+                        columns[0].children[0].innerText == "O" &&
+                        columns[0].children[0].innerText == "O") {
+                            count = -3
+                    }
+                else if (columns[0].children[2].innerText == "X" &&
+                        columns[1].children[1].innerText == "X" &&
+                        columns[2].children[0].innerText == "X") {
+                            count = 3
+                    }
+                else if (columns[0].children[2].innerText == "O" &&
+                        columns[1].children[1].innerText == "O" &&
+                        columns[2].children[0].innerText == "O") {
+                            count = -3
+                    }
+                // output result
+                if (count === 3){
+                    return {
+                        'gameEnded': true,
+                        'winner': "blue"
+                    }
+                } else if (count === -3) {
+                    return {
+                        'gameEnded': true,
+                        'winner': "red"
+                    }
+                } else {
+                    return {
+                        'gameEnded': false,
+                        'winner': ""
+                    }
+                }
+            }
+
+        </script>
+    </div>
+</body>
+
+</html>
