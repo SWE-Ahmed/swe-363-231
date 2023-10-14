@@ -1,4 +1,5 @@
 html {
+    scroll-behavior: smooth;
     background: var(--Color-1, #222831);
     color: #EEE;
 }
@@ -221,8 +222,65 @@ h1 .cvButton {
     height: 189px;
 }
 
+
 .contactMe {
     margin-top: 256px;
+    
+}
+
+.aboutSection {     
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.workSection {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.contactSection {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.contactForm {
+    margin-left: 400px;
+    margin-right: 96px;
+}
+
+img {
+    margin-left: 400px;
+    margin-right: 96px;
+}
+
+#wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,.6);
+    z-index: 1001;
+}
+
+#popup {
+    width: 555px;
+    height: 375px;
+    background: #222831;
+    border: 5px solid #000;
+    border-radius: 25px;
+    -moz-border-radius: 25px;
+    -webkit-border-radius: 25px;
+    box-shadow: #64686e 0px 0px 3px 3px;
+    -moz-box-shadow: #64686e 0px 0px 3px 3px;
+    -webkit-box-shadow: #64686e 0px 0px 3px 3px;
+    position: relative;
 }
 
 body {

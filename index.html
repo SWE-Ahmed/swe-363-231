@@ -9,6 +9,20 @@
     </head>
     <body>
         <!-- <div class="loadingIcon"></div> -->
+        <!-- The popup message to the guest about the hotkeys -->
+        <div id="wrapper">
+            <div id="popup">
+                <center>
+                    <h2>HotKeys in this Webite</h2>
+                    <p>Use the following keys to easily navigate mouseless:</p>
+                    <p>0 -> Navigate to the top of the Page</p>
+                    <p>1 -> Navigate to the About Me Section</p>
+                    <p>2 -> Navigate to the Work Me Section</p>
+                    <p>3 -> Navigate to the Contact Me Section</p>
+                    <input type="submit" name="submit" value="Got it!" onClick="PopUp()" />
+                </center>
+            </div>
+        </div>
         <section>
             <header>
                 <nav>
@@ -16,8 +30,8 @@
                     <ul>
                         <a href="" class="gradient-menu"> .</a>
                         <li><a href="index.html">Home</a></li>
-                        <li><a href="pages/contributions.html">Contributions</a></li>
-                        <li><a href="pages/contact.html">Contact Me</a></li>
+                        <li><a href="#useImage1">Contributions</a></li>
+                        <li><a href="#useImage2">Contact Me</a></li>
                     </ul>
                 </nav>
                 <h1>
@@ -35,7 +49,7 @@
                 </h1>
             </header>
         </section>
-        <section>            
+        <section class="aboutSection" id="useImage0">            
             <h2 class="aboutMe">
                 <div class="aboutMeTitle">
                     About Me
@@ -47,7 +61,7 @@
                 </p>
             </h2>
         </section>
-        <section>            
+        <section class="workSection" id="useImage1">            
             <h2 class="workMe">
                 <div class="workMeTitle">
                     Work Me
@@ -59,7 +73,7 @@
                 </p>
             </h2>
         </section>
-        <section>            
+        <section class="contactSection" id="useImage2">            
             <h2 class="contactMe">
                 <div class="contactMeTitle">
                     Contact Me
@@ -70,6 +84,27 @@
                     aspernatur dolorum atque ipsa enim magni unde eligendi maiores sint voluptatem culpa.
                 </p>
             </h2>
+            <form class="contactForm" action="../index.html">
+
+                <label for="name">Name:</label>
+                <input type="text" name="name"><br><br>
+                <label for="sex">Sex:</label>
+                <input type="radio" name="sex" id="male" value="male">
+                <label for="male">Male</label>
+                <input type="radio" name="sex" id="female" value="female">
+                <label for="female">Female</label> <br><br>
+                <label for="country">Country: </label>
+                <select name="country" id="country">
+                    <option>Select an option</option>
+                    <option value="saudiArabia">Saudi Arabia</option>
+                    <option value="australia">Australia</option>
+                    <option value="uk">UK</option>
+                </select><br><br>
+                <label for="message">Message:</label><br>
+                <textarea name="message" id="message" cols="30" rows="4"></textarea><br><br>
+                <input type="submit" value="Submit">
+    
+            </form>
         </section>
         <section>
             <footer >
@@ -78,5 +113,54 @@
                 </small>
             </footer>
         </section>
+        <script>
+            // the following script is to populate the images dynamically
+            let images = [
+                {
+                    src:"./assets/meSuit.png",
+                    alt:"Myself in a suit"
+                },
+                {
+                    src:"./assets/kfupmIcon.png",
+                    alt:"Icon of KFUPM"
+                }
+            ]
+            
+            for (var i = 0; i < images.length; i++){
+                let img = document.createElement("img")
+                img.width = 200
+                img.height = 200
+                img.src = images[i].src
+                img.alt = images[i].alt
+                document.querySelector(`#useImage${i}`).appendChild(img)
+            }
+
+            // the following script is to make the web page responsive to keyboard taps
+            // using the numbers 0,1,2,3 to represent sections  of the page to navigate to when clicked
+            // 0 -> home
+            // 1 -> about me section
+            // 2 -> work me section
+            // 3 -> contact me section
+            window.onkeydown = function(event) {
+            if (event.keyCode === 48 || event.keyCode === 96) {
+                window.location.href = "index.html"
+            } else if (event.keyCode === 49 || event.keyCode === 97) {
+                window.location.href = "#useImage0"
+            } else if (event.keyCode === 50 || event.keyCode === 98) {
+                window.location.href = "#useImage1"
+            } else if (event.keyCode === 51 || event.keyCode === 99) {
+                window.location.href = "#useImage2"
+            }
+            };
+            // to let the guest know about these hotkeys
+            $(document).ready(function(){
+                setTimeout(function(){
+                    PopUp();
+                },5000);
+            });
+            function PopUp(){
+                document.getElementById('wrapper').style.display="none"; 
+            } 
+        </script>
     </body>
 </html>
