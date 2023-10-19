@@ -1,13 +1,15 @@
+// creating a class for the images
+class MyImage {
+    constructor(src, alt) {
+        this.src = src
+        this.alt = alt
+    }
+}
+
 // the following script is to populate the images dynamically
 let images = [
-    {
-        src:"../assets/meSuit.png",
-        alt:"Myself in a suit"
-    },
-    {
-        src:"../assets/kfupmIcon.png",
-        alt:"Icon of KFUPM"
-    }
+    new MyImage("../assets/meSuit.png", "Myself in a suit"),
+    new MyImage("../assets/kfupmIcon.png", "Icon of KFUPM")
 ]
 for (var i = 0; i < images.length; i++){
     let img = document.createElement("img")
@@ -47,7 +49,8 @@ function PopUp(){
 } 
 
 // fetch from the Data Validation API
-function validateMessageData() {
+// adding the validation function to the message data
+document.getElementById("formData").onclick = function(){
     const apiKey = "9ec579f2818a1387436b0d909ef73026";   
     const valText = document.querySelector("#message").value
     const request =  `https://api.meaningcloud.com/sentiment-2.1?key=${apiKey}&txt=${encodeURIComponent(valText)}&lang=en`; 
@@ -64,14 +67,12 @@ function validateMessageData() {
     }) 
     .then(data => { 
         const sentiment = data.score_tag
-        console.log("Sentiment:", sentiment);
+        console.log("Sentiment:", sentiment);   
     }) 
     .catch(error => { 
         console.error("Error:", error);
     });
 }
-// adding the validation function to the message data
-document.getElementById("formData").onclick = function(){validateMessageData()}
 
 // adding the signature functionality
 const canvas = document.getElementById("sign");
